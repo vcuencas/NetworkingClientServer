@@ -10,10 +10,11 @@
 #include <iostream>
 #include <sys/socket.h>
 #include <netinet/in.h>
+using namespace std;
 
 int main(int argc, char* argv[]) {
     int sockfd, newsockfd, portNumber, n;
-    char * buffer[255];
+    char buffer[255];
     struct sockaddr_in serverAddress, clientAddress;
 
     socklen_t clilen;
@@ -45,27 +46,24 @@ int main(int argc, char* argv[]) {
         cout << "Error: Accept failed." << endl;
     }
 
-    while (1) {
-        bzero(buffer, 255);
-        n = read(newsockfd, buffer, 255);
+    //bzero(buffer, 255);
+    //n = read(newsockfd, buffer, 255);
+    //n = write(newsockfd, buffer, 255);
 
-        if (n < 0)
-            cout << "Error: Reading failed." << endl;
+    cout << "<Valentina>:<04959393>" << endl;
 
-        cout << "Client: " << buffer << endl;
-        bzero(buffer, 255);
-        fgets(buffer, 255, stdin);
+    if (n < 0)
+        cout << "Error: Reading failed." << endl;
 
-        n = write(newsockfd, buffer, strlen(buffer));
 
-        if (n < 0)
-            cout << "Error: Writing failed." << endl;
+    bzero(buffer, 255);
+    //fgets(buffer, 255, stdin);
 
-        int i = strcmp("Bye", buffer, 3);
+    n = write(newsockfd, "Welcome to the server running on REPTILIAN", 43);
 
-        if (i == 0)
-            break;
-    }
+    if (n < 0)
+        cout << "Error: Writing failed." << endl;
+
     close(newsockfd);
     close(sockfd);
 }

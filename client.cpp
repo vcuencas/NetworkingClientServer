@@ -7,6 +7,8 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <netdb.h>
+using namespace std;
 
 int main(int argc, char* argv[]) {
     int sockfd, portNumber, n;
@@ -30,28 +32,22 @@ int main(int argc, char* argv[]) {
     if (connect(sockfd, (struct sockaddr *) &serverAddress, sizeof(serverAddress)) < 0)
         cout << "Error: Connection failed." << endl;
 
-    while (1) {
-        bzero(buffer, 255);
-        fgets(buffer,255,stdin);
-        n = write(sockfd, buffer, strlen(buffer));
+    //bzero(buffer, 255);
+    //fgets(buffer,255,stdin);
+    //n = write(sockfd, buffer, strlen(buffer));
+    //n = write(sockfd, "<Valentina>:<04959393>", 22);
+    //send(sockfd, "<Valentina>:<04959393>", 0x16, 0);
+    //cout << "<Valentina>:<04959393>" << endl;
+    if (n < 0)
+        cout << "Error: Writing failed." << endl;
+    bzero(buffer, 255);
 
-        if (n < 0)
-            cout << "Error: Writing failed." << endl;
+    n = read(sockfd, buffer, strlen(buffer));
 
-        bzero(buffer, 255);
+    if (n < 0)
+        cout << "Error: Reading failed." << endl;
 
-        n = read(sockfd, buffer, strlen(buffer));
-
-        if (n < 0)
-            cout << "Error: Reading failed." << endl;
-
-        cout << "Server: " << buffer << endl;
-
-        int i = strcmp("Bye", buffer, 3);
-
-        if (i == 0)
-            break;
-    }
+    //cout << "Server: " << buffer << endl;
 
     close(sockfd);
     return 0;
