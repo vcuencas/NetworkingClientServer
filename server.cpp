@@ -46,20 +46,17 @@ int main(int argc, char* argv[]) {
         cout << "Error: Accept failed." << endl;
     }
 
-    //bzero(buffer, 255);
-    //n = read(newsockfd, buffer, 255);
-    //n = write(newsockfd, buffer, 255);
-
-    cout << "<Valentina>:<04959393>" << endl;
+    bzero(buffer, 255);
+    n = read(newsockfd, buffer, 255);
 
     if (n < 0)
         cout << "Error: Reading failed." << endl;
 
+    cout << buffer << endl;
 
     bzero(buffer, 255);
-    //fgets(buffer, 255, stdin);
 
-    n = write(newsockfd, "Welcome to the server running on REPTILIAN", 43);
+    write(newsockfd, "Welcome to the server running on REPTILIAN", strlen("Welcome to the server running on REPTILIAN"));
 
     if (n < 0)
         cout << "Error: Writing failed." << endl;
